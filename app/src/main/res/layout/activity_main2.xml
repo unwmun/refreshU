@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.unw.webkit.EPDWebView
+        android:id="@+id/wv_epd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <ToggleButton
+            android:id="@+id/btn_part_mode"
+            style="@style/EpdButton"
+            android:textOn="PART ON"
+            android:textOff="PART OFF"/>
+
+        <ToggleButton
+            android:id="@+id/btn_auto_mode"
+            style="@style/EpdButton"
+            android:textOn="AUTO ON"
+            android:textOff="AUTO OFF"/>
+
+        <ToggleButton
+            android:id="@+id/btn_a2_mode"
+            style="@style/EpdButton"
+            android:textOn="A2 ON"
+            android:textOff="A2 OFF"/>
+
+    </LinearLayout>
+
+</LinearLayout>
