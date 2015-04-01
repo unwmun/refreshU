@@ -49,95 +49,99 @@ public class EPDWebView extends WebView
     public void setEpdMode(String mode) {
         EPD_MODE = mode;
     }
+    
+    private void excuteEpd()
+    {
+        mEpdController.setEpdMode(this, EPD_MODE);
+    }
 
-    private static int count;
     @Override
     protected void onDraw(Canvas canvas) {
-        T62EPDController.requestEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.onDraw(canvas);
-        Log.d(TAG, "onDraw called + ##" + count++);
+        Log.d(TAG, "onDraw()");
     }
 
     @Override
     public void invalidate() {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.invalidate();
         Log.d(TAG, "invalidate()");
     }
 
     @Override
     public void invalidate(Rect dirty) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.invalidate(dirty);
         Log.d(TAG, "invalidate(Rect dirty)");
     }
 
     @Override
     public void invalidate(int l, int t, int r, int b) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.invalidate(l, t, r, b);
         Log.d(TAG, "invalidate(int l, int t, int r, int b)");
     }
 
     @Override
     public void invalidateDrawable(Drawable drawable) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.invalidateDrawable(drawable);
         Log.d(TAG, "invalidateDrawable(Drawable drawable)");
     }
 
     @Override
     public void postInvalidate() {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.postInvalidate();
         Log.d(TAG, "postInvalidate()");
     }
 
     @Override
     public void postInvalidate(int left, int top, int right, int bottom) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.postInvalidate(left, top, right, bottom);
         Log.d(TAG, "postInvalidate(int left, int top, int right, int bottom)");
     }
 
     @Override
     public void postInvalidateDelayed(long delayMilliseconds) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.postInvalidateDelayed(delayMilliseconds);
         Log.d(TAG, "postInvalidate(long delayMilliseconds)");
     }
 
     @Override
     public void postInvalidateDelayed(long delayMilliseconds, int left, int top, int right, int bottom) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.postInvalidateDelayed(delayMilliseconds, left, top, right, bottom);
         Log.d(TAG, "postInvalidateDelayed(long delayMilliseconds, int left, int top, int right, int bottom)");
     }
 
     @Override
     public void postInvalidateOnAnimation() {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.postInvalidateOnAnimation();
         Log.d(TAG, "postInvalidateOnAnimation()");
     }
 
     @Override
     public void postInvalidateOnAnimation(int left, int top, int right, int bottom) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.postInvalidateOnAnimation(left, top, right, bottom);
         Log.d(TAG, "postInvalidateOnAnimation(int left, int top, int right, int bottom)");
     }
 
     @Override
     public void scrollBy(int x, int y) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.scrollBy(x, y);
         Log.d(TAG, "scrollBy()");
     }
 
     @Override
     public void scrollTo(int x, int y) {
-        mEpdController.setEpdMode(this, EPD_MODE);
+        excuteEpd();
         super.scrollTo(x, y);
         Log.d(TAG, "scrollTo()");
     }

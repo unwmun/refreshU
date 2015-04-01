@@ -19,18 +19,22 @@ public class EPDFactory {
                 break;
 
             case UNKNOWN :
-                epdController = new EPDController() {
-                    @Override
-                    public void setEpdMode(View targetView, String epdMode) {
-                        // 아무것도 안해줌
-                    }
-                };
+                epdController = new FakeEPDController();
                 break;
 
             default : break;
         }
 
         return epdController;
+    }
+
+    private static class FakeEPDController implements EPDController
+    {
+        @Override
+        public void setEpdMode(View targetView, String epdMode) {
+            // 아무것도 안해줌
+            // 일반 장비에서는 epd모드를 적용시키지 않음.
+        }
     }
 
 }

@@ -47,7 +47,7 @@ public class DeviceInfo {
         // ~ 기타등등
 
 
-        // 현재 장비 입력
+        // 현재 장비 찾기
         Iterator<Device> iter = deviceMap.keySet().iterator();
 
         while (iter.hasNext()) {
