@@ -104,8 +104,6 @@ public class BoyueA2Service extends Service implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        Log.w("터치", "아이조아");
-
         return false;
     }
 }

@@ -74,16 +74,25 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         if (on) {
             switch (v.getId()) {
                 case R.id.btn_part_mode:
+                    mAutoModeButton.setEnabled(false);
+                    mA2ModeButton.setEnabled(false);
+
                     mWebView.setEpdMode(T62EPDController.EPD_PART);
                     title = T62EPDController.EPD_PART;
                     break;
 
                 case R.id.btn_auto_mode:
+                    mPartModeButton.setEnabled(false);
+                    mA2ModeButton.setEnabled(false);
+
                     mWebView.setEpdMode(T62EPDController.EPD_AUTO);
                     title = T62EPDController.EPD_AUTO;
                     break;
 
                 case R.id.btn_a2_mode:
+                    mPartModeButton.setEnabled(false);
+                    mAutoModeButton.setEnabled(false);
+
                     bRun = true;
                     mHandler.post(mA2ModeRunnable);
                     title = T62EPDController.EPD_A2;
@@ -99,6 +108,10 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
 
                 case R.id.btn_part_mode:
                 case R.id.btn_auto_mode:
+                    mPartModeButton.setEnabled(true);
+                    mAutoModeButton.setEnabled(true);
+                    mA2ModeButton.setEnabled(true);
+
                     mWebView.setEpdMode(T62EPDController.EPD_FULL_DITHER);
                     title = T62EPDController.EPD_FULL_DITHER;
                     break;
