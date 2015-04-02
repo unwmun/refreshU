@@ -3,10 +3,13 @@ package com.unw.device.epdcontrol;
 import android.os.Build;
 import android.util.Log;
 
-import java.util.Enumeration;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by unw on 15. 3. 31..
@@ -17,7 +20,8 @@ public class DeviceInfo {
 
     public enum Device {
         UNKNOWN,
-        EINK_T62;
+        EINK_BOYUE_T61,
+        EINK_BOYUE_T62,
     }
 
     public final static String MANUFACTURER;
@@ -27,7 +31,8 @@ public class DeviceInfo {
 
     public static Device CURRENT_DEVICE = Device.UNKNOWN;
 
-    public static final boolean EINK_T62;
+    public static final boolean EINK_BOYUE_T61;
+    public static final boolean EINK_BOYUE_T62;
 
     static {
         MANUFACTURER = getBuildField("MANUFACTURER");
@@ -37,12 +42,18 @@ public class DeviceInfo {
 
         HashMap<Device, Boolean> deviceMap = new HashMap<Device, Boolean>();
 
-        Log.i(TAG, "DeviceInfo: MANUFACTURER=" + MANUFACTURER + ", MODEL=" + MODEL + ", DEVICE=" + DEVICE + ", PRODUCT=" + PRODUCT);
+        Log.i(TAG, getDeviceInfo());
         // 자기들 회사 이름도 모르는지 boeye로 나옴
-        EINK_T62 = (MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue"))
+        EINK_BOYUE_T62 = (MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue"))
                 && (PRODUCT.toLowerCase().startsWith("t62") || MODEL.contentEquals("rk30sdk"))
                 && DEVICE.toLowerCase().startsWith("t62");
-        deviceMap.put(Device.EINK_T62, EINK_T62);
+        deviceMap.put(Device.EINK_BOYUE_T62, EINK_BOYUE_T62);
+
+        // T61은 RK3066 칩셋 사용, TODO android.view.View 메소드가 다를 수도 있어서 테스트요망
+        EINK_BOYUE_T61 = (MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue"))
+                && (PRODUCT.toLowerCase().startsWith("t61") || MODEL.contentEquals("rk30sdk"))
+                && DEVICE.toLowerCase().startsWith("t61");
+        deviceMap.put(Device.EINK_BOYUE_T61, EINK_BOYUE_T61);
 
         // ~ 기타등등
 
@@ -70,5 +81,15 @@ public class DeviceInfo {
             Log.d(TAG, "Exception while trying to check Build." + fieldName);
             return "";
         }
+    }
+
+    public static String getDeviceInfo(){
+        StringBuilder builder = new StringBuilder("DeviceInfo: ")
+                .append("MANUFACTURER=").append(MANUFACTURER)
+                .append(", MODEL=").append(MODEL)
+                .append(", DEVICE=").append(DEVICE)
+                .append(", PRODUCT=").append(PRODUCT);
+
+        return builder.toString();
     }
 }

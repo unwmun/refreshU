@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unw.einkscrollertest" >
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
+
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -24,11 +26,13 @@
 
         </activity>
 
-        <service android:name="com.unw.einkscrollertest.BoyueA2Service">
+        <!--<service android:name="com.unw.einkscrollertest.BoyueA2Service">
             <intent-filter>
                 <action android:name="com.unw.einkscrollertest.startService"/>
             </intent-filter>
-        </service>
+        </service> -->
     </application>
+
+
 
 </manifest>

@@ -14,7 +14,8 @@ public class EPDFactory {
         EPDController epdController = null;
 
         switch (DeviceInfo.CURRENT_DEVICE) {
-            case EINK_T62 :
+            case EINK_BOYUE_T61 :
+            case EINK_BOYUE_T62 :
                 epdController = new T62EPDController();
                 break;
 
