@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import com.unw.device.epdcontrol.DeviceInfo;
+import com.unw.device.epdcontrol.rockchip.RK30xxEPDController;
 import com.unw.device.epdcontrol.rockchip.T62EPDController;
 import com.unw.webkit.EPDWebView;
 import com.unw.webkit.EPDWebViewClient;
@@ -30,12 +31,12 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
     private Runnable mA2ModeRunnable = new Runnable() {
         @Override
         public void run() {
-            T62EPDController.requestEpdMode(mA2ModeButton, T62EPDController.EPD_A2);
+            RK30xxEPDController.requestEpdMode(mA2ModeButton, RK30xxEPDController.EPD_A2);
 
             if (bRun)
                 mHandler.postDelayed(this, 500L);
             else
-                T62EPDController.requestEpdMode(mA2ModeButton, T62EPDController.EPD_FULL_DITHER);
+                RK30xxEPDController.requestEpdMode(mA2ModeButton, RK30xxEPDController.EPD_FULL_DITHER);
         }
     };
 
@@ -88,16 +89,16 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
                     mAutoModeButton.setEnabled(false);
                     mA2ModeButton.setEnabled(false);
 
-                    mWebView.setEpdMode(T62EPDController.EPD_PART);
-                    title = T62EPDController.EPD_PART;
+                    mWebView.setEpdMode(RK30xxEPDController.EPD_PART);
+                    title = RK30xxEPDController.EPD_PART;
                     break;
 
                 case R.id.btn_auto_mode:
                     mPartModeButton.setEnabled(false);
                     mA2ModeButton.setEnabled(false);
 
-                    mWebView.setEpdMode(T62EPDController.EPD_AUTO);
-                    title = T62EPDController.EPD_AUTO;
+                    mWebView.setEpdMode(RK30xxEPDController.EPD_AUTO);
+                    title = RK30xxEPDController.EPD_AUTO;
                     break;
 
                 case R.id.btn_a2_mode:
@@ -123,8 +124,8 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
                     mAutoModeButton.setEnabled(true);
                     mA2ModeButton.setEnabled(true);
 
-                    mWebView.setEpdMode(T62EPDController.EPD_FULL_DITHER);
-                    title = T62EPDController.EPD_FULL_DITHER;
+                    mWebView.setEpdMode(RK30xxEPDController.EPD_FULL_DITHER);
+                    title = RK30xxEPDController.EPD_FULL_DITHER;
                     break;
 
                 default:

@@ -22,6 +22,7 @@ public class DeviceInfo {
         UNKNOWN,
         EINK_BOYUE_T61,
         EINK_BOYUE_T62,
+        EINK_ONYX_C67,
     }
 
     public final static String MANUFACTURER;
@@ -33,6 +34,7 @@ public class DeviceInfo {
 
     public static final boolean EINK_BOYUE_T61;
     public static final boolean EINK_BOYUE_T62;
+    public static final boolean EINK_ONYX_C67;
 
     static {
         MANUFACTURER = getBuildField("MANUFACTURER");
@@ -49,11 +51,17 @@ public class DeviceInfo {
                 && DEVICE.toLowerCase().startsWith("t62");
         deviceMap.put(Device.EINK_BOYUE_T62, EINK_BOYUE_T62);
 
-        // T61은 RK3066 칩셋 사용, TODO android.view.View 메소드가 다를 수도 있어서 테스트요망
+        // T61은 RK3066 칩셋 사용
         EINK_BOYUE_T61 = (MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue"))
                 && (PRODUCT.toLowerCase().startsWith("t61") || MODEL.contentEquals("rk30sdk"))
                 && DEVICE.toLowerCase().startsWith("t61");
         deviceMap.put(Device.EINK_BOYUE_T61, EINK_BOYUE_T61);
+
+        // Onyx C67
+        EINK_ONYX_C67 = (MANUFACTURER.toLowerCase().contentEquals("onyx"))
+                && (PRODUCT.toLowerCase().startsWith("c67") || MODEL.contentEquals("rk30sdk"))
+                && DEVICE.toLowerCase().startsWith("c67");
+        deviceMap.put(Device.EINK_ONYX_C67, EINK_ONYX_C67);
 
         // ~ 기타등등
 

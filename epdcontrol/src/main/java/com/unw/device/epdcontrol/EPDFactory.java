@@ -2,6 +2,8 @@ package com.unw.device.epdcontrol;
 
 import android.view.View;
 
+import com.unw.device.epdcontrol.rockchip.C67EPDController;
+import com.unw.device.epdcontrol.rockchip.T61EPDController;
 import com.unw.device.epdcontrol.rockchip.T62EPDController;
 
 /**
@@ -15,8 +17,13 @@ public class EPDFactory {
 
         switch (DeviceInfo.CURRENT_DEVICE) {
             case EINK_BOYUE_T61 :
+                epdController = new T61EPDController();
+                break;
             case EINK_BOYUE_T62 :
                 epdController = new T62EPDController();
+                break;
+            case EINK_ONYX_C67 :
+                epdController = new C67EPDController();
                 break;
 
             case UNKNOWN :
@@ -28,6 +35,8 @@ public class EPDFactory {
 
         return epdController;
     }
+
+
 
     private static class FakeEPDController implements EPDController
     {

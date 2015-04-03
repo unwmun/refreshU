@@ -7,10 +7,10 @@ import com.unw.device.epdcontrol.EPDController;
 /**
  * Created by unw on 15. 3. 26..
  */
-public class T62EPDController extends RK30xxEPDController implements EPDController
+public class T61EPDController extends RK30xxEPDController implements EPDController
 {
     @Override
     public void setEpdMode(View targetView, String epdMode) {
-        requestEpdMode(targetView, epdMode);
+        requestEpdMode(targetView, epdMode, true);
     }
 }

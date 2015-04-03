@@ -10,6 +10,7 @@ import android.webkit.WebView;
 
 import com.unw.device.epdcontrol.EPDController;
 import com.unw.device.epdcontrol.EPDFactory;
+import com.unw.device.epdcontrol.rockchip.RK30xxEPDController;
 import com.unw.device.epdcontrol.rockchip.T62EPDController;
 
 /**
@@ -19,7 +20,8 @@ public class EPDWebView extends WebView
 {
     private static final String TAG = "EPDWebView";
 
-    public static String EPD_MODE = T62EPDController.EPD_FULL_DITHER;
+    // 테스트를 위해 일부러 초기값을 리프레쉬가 심한 FULL_DITHER 모드로 둠
+    public static String EPD_MODE = RK30xxEPDController.EPD_FULL_DITHER;
 
     private EPDController mEpdController;
 
