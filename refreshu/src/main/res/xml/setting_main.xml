@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/setting_cetegory_default_title">
+
+        <SwitchPreference
+            android:key="@string/setting_refresh_service_run_key"
+            android:title="@string/setting_refresh_service_run_title" />
+        <CheckBoxPreference
+            android:key="@string/setting_service_run_on_boot_key"
+            android:dependency="@string/setting_refresh_service_run_key"
+            android:title="@string/setting_service_run_on_boot_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/setting_cetegory_personal_title">
+
+        <EditTextPreference
+            android:key="@string/setting_refresh_count_key"
+            android:title="@string/setting_refresh_count_title"
+            android:dialogTitle="@string/setting_refresh_service_run_title"
+            android:defaultValue="10"
+            android:inputType="number"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/setting_cetegory_advanced">
+
+        <Preference
+            android:key="@string/setting_device_info_key"
+            android:title="@string/setting_device_info_title">
+            <intent android:targetClass="com.unw.refreshu.DeviceInfoActivity"
+                android:targetPackage="com.unw.refreshu"/>
+            </Preference>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

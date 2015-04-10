@@ -1,16 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.unw.einkscrollertest"
-        minSdkVersion 10
-        targetSdkVersion 19
+        applicationId "com.unw.refreshu"
+        minSdkVersion 11
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
 
+        ndk {
+            moduleName "EventInjector"
+            ldLibs "log"
+        }
     }
     buildTypes {
         release {
@@ -22,6 +26,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:19.1.+'
-    compile project(':epdcontrol');
+    compile 'com.android.support:appcompat-v7:21.0.3'
 }

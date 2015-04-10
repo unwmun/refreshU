@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 
 import com.unw.device.epdcontrol.EPDController;
@@ -146,5 +147,10 @@ public class EPDWebView extends WebView
         excuteEpd();
         super.scrollTo(x, y);
         Log.d(TAG, "scrollTo()");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
     }
 }

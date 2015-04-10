@@ -35,4 +35,19 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <ToggleButton
+            android:id="@+id/btn_refresh_service"
+            style="@style/EpdButton"
+            android:textOn="Refresh ON"
+            android:textOff="Refresh OFF"/>
+
+
+
+    </LinearLayout>
+
 </LinearLayout>

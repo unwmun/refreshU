@@ -1,1 +1,1 @@
-include ':app', ':epdcontrol'
+include ':app', ':epdcontrol', ':refreshu'

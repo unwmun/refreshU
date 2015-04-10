@@ -1,9 +1,17 @@
 package com.unw.einkscrollertest;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.widget.CompoundButton;
@@ -18,11 +26,12 @@ import com.unw.webkit.EPDWebViewClient;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 
-public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener{
+public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = "MainActivity";
 
@@ -46,6 +55,7 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
     private ToggleButton mPartModeButton;
     private ToggleButton mAutoModeButton;
     private ToggleButton mA2ModeButton;
+    private ToggleButton mRefreshButton;
 
     private static final String URL = "http://navercast.naver.com";
 
@@ -60,10 +70,12 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         mPartModeButton = (ToggleButton) findViewById(R.id.btn_part_mode);
         mAutoModeButton = (ToggleButton) findViewById(R.id.btn_auto_mode);
         mA2ModeButton = (ToggleButton) findViewById(R.id.btn_a2_mode);
+        mRefreshButton = (ToggleButton) findViewById(R.id.btn_refresh_service);
 
         mPartModeButton.setOnCheckedChangeListener(this);
         mAutoModeButton.setOnCheckedChangeListener(this);
         mA2ModeButton.setOnCheckedChangeListener(this);
+        mRefreshButton.setOnCheckedChangeListener(this);
 
         mWebView.setWebViewClient(new EPDWebViewClient());
 
@@ -74,7 +86,10 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
 
         mWebView.loadUrl(URL);
 
-        checkDeviceInfomation();
+        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        am.registerMediaButtonEventReceiver(new ComponentName(getPackageName(), RemoteControlReceiver.class.getName()));
+
+        //checkDeviceInfomation();
 
     }
 
@@ -107,7 +122,12 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
 
                     bRun = true;
                     mHandler.post(mA2ModeRunnable);
-                    title = T62EPDController.EPD_A2;
+                    title = RK30xxEPDController.EPD_A2;
+                    break;
+
+                case R.id.btn_refresh_service:
+                    startService(new Intent("com.unw.einkscrollertest.startService"));
+                    Log.w(TAG, "hi");
                     break;
 
                 default:
@@ -163,6 +183,17 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
             builder.append("[" + i + "] ")
                     .append(mtd.toString())
                     .append("\n");
+
+            Annotation[] mthAnnos = mtd.getAnnotations();
+            if (mthAnnos.length > 0) {
+                builder.append("\n\t\t\t==========<Annotation>==========\n");
+                for (int j = 0; j < mthAnnos.length; j++) {
+                    Annotation anno = mthAnnos[j];
+                    builder.append("\t\t\t[" + j + "] ")
+                            .append(anno.toString())
+                            .append("\n");
+                }
+            }
         }
         //method
         builder.append("\n==========<Field>==========\n");
@@ -174,6 +205,8 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         }
 
         print(DeviceInfo.DEVICE, builder.toString());
+
+        Log.i(TAG, builder.toString());
     }
 
     private void print(String title, String msg)
@@ -187,5 +220,32 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static RemoteControlReceiver mHomeKeyReceiver = null;
+
+    private void registerHomeKeyReceiver(Context context) {
+        Log.i("", "registerHomeKeyReceiver");
+        AudioManager manager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        manager.registerMediaButtonEventReceiver(new ComponentName(getPackageName(), RemoteControlReceiver.class.getName()));
+    }
+
+    private static void unregisterHomeKeyReceiver(Context context) {
+        Log.i("", "unregisterHomeKeyReceiver");
+        if (null != mHomeKeyReceiver) {
+            context.unregisterReceiver(mHomeKeyReceiver);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerHomeKeyReceiver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //unregisterHomeKeyReceiver(this);
     }
 }

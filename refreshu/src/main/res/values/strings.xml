@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">RefreshU</string>
+
+    <string name="setting_cetegory_default_title">Refresh U</string>
+    <string name="setting_refresh_service_run_key">setting_refresh_service_run_key</string>
+    <string name="setting_refresh_service_run_title">Refresh YOU</string>
+    <string name="setting_service_run_on_boot_key">setting_service_run_on_boot_key</string>
+    <string name="setting_service_run_on_boot_title">부팅시 자동으로 실행</string>
+    <string name="setting_cetegory_personal_title">개인 설정</string>
+    <string name="setting_refresh_count_key">setting_refresh_count_key</string>
+    <string name="setting_refresh_count_title">리프레시 주기</string>
+    <string name="setting_cetegory_advanced">Advanced</string>
+    <string name="setting_device_info_key">setting_refresh_count_key</string>
+    <string name="setting_device_info_title">기기 정보</string>
+    <string name="setting_device_info_copy">복사하기</string>
+    <string name="setting_device_info_copy_msg">클립보드에 복사되었습니다.</string>
+    <string name="setting_device_info_mail">메일 보내기</string>
+    <string name="setting_device_info_error">루팅 권한이 필요합니다.</string>
+
+    <string name="service_launch_msg_fmt">%s 서비스가 실행되었습니다.</string>
+    <string name="service_fire_msg_fmt">%s 서비스가 종료되었습니다.</string>
+
+</resources>

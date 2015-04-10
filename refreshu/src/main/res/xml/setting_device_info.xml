@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/setting_device_info_title">
+
+        <Preference
+            android:key="@string/setting_device_info_key"
+            android:title="@string/setting_device_info_title"/>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

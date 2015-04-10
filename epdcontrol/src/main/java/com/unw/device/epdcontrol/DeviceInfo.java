@@ -46,20 +46,20 @@ public class DeviceInfo {
 
         Log.i(TAG, getDeviceInfo());
         // 자기들 회사 이름도 모르는지 boeye로 나옴
-        EINK_BOYUE_T62 = (MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue"))
+        EINK_BOYUE_T62 = ( MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue") )
                 && (PRODUCT.toLowerCase().startsWith("t62") || MODEL.contentEquals("rk30sdk"))
                 && DEVICE.toLowerCase().startsWith("t62");
         deviceMap.put(Device.EINK_BOYUE_T62, EINK_BOYUE_T62);
 
         // T61은 RK3066 칩셋 사용
-        EINK_BOYUE_T61 = (MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue"))
-                && (PRODUCT.toLowerCase().startsWith("t61") || MODEL.contentEquals("rk30sdk"))
+        EINK_BOYUE_T61 = ( MANUFACTURER.toLowerCase().contentEquals("boeye") || MANUFACTURER.toLowerCase().contentEquals("boyue") )
+                && ( PRODUCT.toLowerCase().startsWith("t61") || MODEL.contentEquals("rk30sdk") )
                 && DEVICE.toLowerCase().startsWith("t61");
         deviceMap.put(Device.EINK_BOYUE_T61, EINK_BOYUE_T61);
 
         // Onyx C67
-        EINK_ONYX_C67 = (MANUFACTURER.toLowerCase().contentEquals("onyx"))
-                && (PRODUCT.toLowerCase().startsWith("c67") || MODEL.contentEquals("rk30sdk"))
+        EINK_ONYX_C67 = MANUFACTURER.toLowerCase().contentEquals("onyx")
+                && ( PRODUCT.toLowerCase().startsWith("c67") || MODEL.contentEquals("rk30sdk") )
                 && DEVICE.toLowerCase().startsWith("c67");
         deviceMap.put(Device.EINK_ONYX_C67, EINK_ONYX_C67);
 
