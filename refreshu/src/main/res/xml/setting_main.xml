@@ -5,10 +5,12 @@
 
         <SwitchPreference
             android:key="@string/setting_refresh_service_run_key"
+            android:defaultValue="false"
             android:title="@string/setting_refresh_service_run_title" />
         <CheckBoxPreference
             android:key="@string/setting_service_run_on_boot_key"
             android:dependency="@string/setting_refresh_service_run_key"
+            android:defaultValue="false"
             android:title="@string/setting_service_run_on_boot_title"/>
 
     </PreferenceCategory>
