@@ -171,16 +171,26 @@ public class Events
 
             Log.d("", "m_nid : " + m_nId);
 
-			intSendEvent(m_nId, 3, 57, 10); // ABS_MT_TRACKING_ID : 트랙킹할 아이디값
-			intSendEvent(m_nId, 3, 53, 100);
-			intSendEvent(m_nId, 3, 54, 100);
+			intSendEvent(m_nId, 1, 330, 1); // BTN_TOUCH DOWN
+
+			intSendEvent(m_nId, 3, 57, 232); // ABS_MT_TRACKING_ID : 트랙킹할 아이디값 (임의, MAX : 65535)
+			intSendEvent(m_nId, 3, 53, x); // ABS_MT_POSITION_X
+			intSendEvent(m_nId, 3, 54, y); // ABS_MT_POSITION_Y
 			intSendEvent(m_nId, 3, 58, 10); // ABS_MT_PRESSURE : 터치 압력값
+
+			intSendEvent(m_nId, 1, 325, 1); // BTN_TOOL_FINGER DOWN
+			intSendEvent(m_nId, 0, 0, 0); // SYN_REPORT
+			intSendEvent(m_nId, 3, 57, -1); // ABS_MT_TRACKING_ID 아이디 초기화
 			intSendEvent(m_nId, 0, 0, 0);
-			intSendEvent(m_nId, 3, 57, -1);
+
+			intSendEvent(m_nId, 1, 330, 0); // BTN_TOUCH UP
+			intSendEvent(m_nId, 1, 325, 0); // BTN_TOOL_FINGER UP
 			intSendEvent(m_nId, 0, 0, 0);
+
 			return 0;
 		}
-		
+
+		//int trackingId = 1;
 		
 		
 		public int SendTouchDown(int x, int y, int screenW, int screenH ) {
