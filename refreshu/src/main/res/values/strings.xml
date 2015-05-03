@@ -6,11 +6,31 @@
     <string name="setting_refresh_service_run_title">Refresh YOU</string>
     <string name="setting_service_run_on_boot_key">setting_service_run_on_boot_key</string>
     <string name="setting_service_run_on_boot_title">부팅시 자동으로 실행</string>
+    <string name="setting_edit_mode_key">setting_edit_mode_key</string>
+    <string name="setting_edit_mode_title">화면 추가 모드</string>
+    <string name="setting_prevent_double_touch_key">setting_prevent_double_touch_key</string>
+    <string name="setting_prevent_double_touch_title">이중 터치 막기</string>
+
     <string name="setting_cetegory_personal_title">개인 설정</string>
+    <string name="setting_system_volumn_mode_key">setting_system_volumn_mode_key</string>
+    <string name="setting_system_volumn_mode_title">시스템 볼륨키 사용</string>
     <string name="setting_refresh_count_key">setting_refresh_count_key</string>
     <string name="setting_refresh_count_title">리프레시 주기</string>
+    <string name="setting_register_activity_key">setting_register_activity_key</string>
+    <string name="setting_register_activity_title">등록된 화면 관리</string>
+
+    <string name="setting_activity_infos_key">setting_activity_infos_key</string>
+
+    <string name="setting_cetegory_keymap">키 매핑</string>
+    <string name="setting_keymap_next_page_key">setting_keymap_next_page_key</string>
+    <string name="setting_keymap_next_page_title">다음 페이지</string>
+    <string name="setting_keymap_pre_page_key">setting_keymap_pre_page_down_key</string>
+    <string name="setting_keymap_pre_page_title">이전 페이지</string>
+    <string name="setting_keymap_back_key">setting_keymap_back_key</string>
+    <string name="setting_keymap_back_title">뒤로가기</string>
+
     <string name="setting_cetegory_advanced">Advanced</string>
-    <string name="setting_device_info_key">setting_refresh_count_key</string>
+    <string name="setting_device_info_key">setting_device_info_key</string>
     <string name="setting_device_info_title">기기 정보</string>
     <string name="setting_device_info_copy">복사하기</string>
     <string name="setting_device_info_copy_msg">클립보드에 복사되었습니다.</string>
@@ -19,5 +39,13 @@
 
     <string name="service_launch_msg_fmt">%s 서비스가 실행되었습니다.</string>
     <string name="service_fire_msg_fmt">%s 서비스가 종료되었습니다.</string>
+    <string name="service_wait_launch_msg">RefreshU가 대기 중입니다.</string>
+    <string name="service_refreshu_launch_msg_fmt">RefreshU가 실행되었습니다.\n리프레시 주기 : %d</string>
+    <string name="service_wait_fire_msg">RefreshU를 종료합니다.</string>
+
+    <string name="service_register_activity_msg">RefreshU에 등록되었습니다.</string>
+    <string name="service_register_activity_mode_msg_fmt">RefreshU 화면 추가 모드가 실행 중입니다.\n등록까지 남은 터치 횟수 : %d</string>
+
+    <string name="setting_key_input_title_fmt">%s 키 입력</string>
 
 </resources>

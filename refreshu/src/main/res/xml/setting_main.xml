@@ -7,33 +7,69 @@
             android:key="@string/setting_refresh_service_run_key"
             android:defaultValue="false"
             android:title="@string/setting_refresh_service_run_title" />
+        <SwitchPreference
+            android:key="@string/setting_edit_mode_key"
+            android:dependency="@string/setting_refresh_service_run_key"
+            android:defaultValue="false"
+            android:title="@string/setting_edit_mode_title" />
         <CheckBoxPreference
             android:key="@string/setting_service_run_on_boot_key"
             android:dependency="@string/setting_refresh_service_run_key"
             android:defaultValue="false"
-            android:title="@string/setting_service_run_on_boot_title"/>
+            android:title="@string/setting_service_run_on_boot_title" />
+        <CheckBoxPreference
+            android:key="@string/setting_prevent_double_touch_key"
+            android:dependency="@string/setting_refresh_service_run_key"
+            android:defaultValue="false"
+            android:title="@string/setting_prevent_double_touch_title" />
 
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/setting_cetegory_personal_title">
+
+        <SwitchPreference
+            android:key="@string/setting_system_volumn_mode_key"
+            android:defaultValue="false"
+            android:title="@string/setting_system_volumn_mode_title" />
 
         <EditTextPreference
             android:key="@string/setting_refresh_count_key"
             android:title="@string/setting_refresh_count_title"
             android:dialogTitle="@string/setting_refresh_service_run_title"
             android:defaultValue="10"
-            android:inputType="number"
-            />
+            android:inputType="number" />
+
+        <com.unw.refreshu.KeyInputListPreference
+            android:key="@string/setting_keymap_next_page_key"
+            android:title="@string/setting_keymap_next_page_title" />
+
+        <com.unw.refreshu.KeyInputListPreference
+            android:key="@string/setting_keymap_pre_page_key"
+            android:title="@string/setting_keymap_pre_page_title" />
+
+        <Preference
+            android:key="@string/setting_register_activity_key"
+            android:title="@string/setting_register_activity_title">
+            <intent
+                android:targetClass="com.unw.refreshu.RegisterActivity"
+                android:targetPackage="com.unw.refreshu" />
+        </Preference>
+
+        <!--<com.unw.refreshu.KeyInputListPreference
+            android:key="@string/setting_keymap_back_key"
+            android:title="@string/setting_keymap_back_title"/> -->
 
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/setting_cetegory_advanced">
 
         <Preference
             android:key="@string/setting_device_info_key"
             android:title="@string/setting_device_info_title">
-            <intent android:targetClass="com.unw.refreshu.DeviceInfoActivity"
-                android:targetPackage="com.unw.refreshu"/>
-            </Preference>
+            <intent
+                android:targetClass="com.unw.refreshu.DeviceInfoActivity"
+                android:targetPackage="com.unw.refreshu" />
+        </Preference>
 
     </PreferenceCategory>
 

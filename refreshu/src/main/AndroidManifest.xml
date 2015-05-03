@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
         android:allowBackup="true"
@@ -22,16 +23,12 @@
 
         <activity
             android:name=".DeviceInfoActivity"/>
+        <activity
+            android:name=".RegisterActivity"/>
 
-        <service android:name="com.unw.refreshu.WaitUserService">
+        <service android:name=".RefreshService">
             <intent-filter>
-                <action android:name="com.unw.refreshu.WaitUserService" />
-            </intent-filter>
-        </service>
-
-        <service android:name="com.unw.refreshu.RefreshSevice">
-            <intent-filter>
-                <action android:name="com.unw.refreshu.RefreshSevice" />
+                <action android:name="com.unw.refreshu.RefreshService2" />
             </intent-filter>
         </service>
 

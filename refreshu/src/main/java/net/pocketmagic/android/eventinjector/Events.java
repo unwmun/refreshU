@@ -170,15 +170,14 @@ public class Events
 //			intSendEvent(0, 0, 0, 0);
 
             Log.d("", "m_nid : " + m_nId);
-			
-			intSendEvent(m_nId, 3, 57, 232); // ABS_MT_TRACKING_ID : 트랙킹할 아이디값
-			intSendEvent(m_nId, 3, 53, x);
-			intSendEvent(m_nId, 3, 54, y);
+
+			intSendEvent(m_nId, 3, 57, 10); // ABS_MT_TRACKING_ID : 트랙킹할 아이디값
+			intSendEvent(m_nId, 3, 53, 100);
+			intSendEvent(m_nId, 3, 54, 100);
 			intSendEvent(m_nId, 3, 58, 10); // ABS_MT_PRESSURE : 터치 압력값
 			intSendEvent(m_nId, 0, 0, 0);
-			intSendEvent(m_nId, 3, 57, -1); 
+			intSendEvent(m_nId, 3, 57, -1);
 			intSendEvent(m_nId, 0, 0, 0);
-			
 			return 0;
 		}
 		
