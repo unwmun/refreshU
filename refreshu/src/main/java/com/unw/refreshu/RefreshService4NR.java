@@ -1,21 +1,28 @@
 package com.unw.refreshu;
 
+import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +42,7 @@ import java.util.List;
  * Created by unw on 17. 11. 3..
  * RefreshService를 루팅없이 사용할 수 있도록 수정.
  */
-public class RefreshService4NR extends Service implements View.OnTouchListener, View.OnKeyListener, View.OnClickListener {
+public class RefreshService4NR extends AccessibilityService implements View.OnTouchListener, View.OnKeyListener, View.OnClickListener {
     private static final String TAG = "RefreshSevice4NR";
 
     // TODO 사용자 입력가능하도록
@@ -77,6 +84,8 @@ public class RefreshService4NR extends Service implements View.OnTouchListener, 
 
     private List<ActivityInfo> mActivityInfos;
 
+    private boolean bProcessAccessibility = false;
+
     private int mKeyCount = 1;
     private Handler mHandler = new Handler();
     private Runnable mResetCountRunnable = new Runnable() {
@@ -93,12 +102,12 @@ public class RefreshService4NR extends Service implements View.OnTouchListener, 
         mRefreshTargetView = new TextView(this);
         mRefreshTargetView.setOnTouchListener(this);
         mRefreshTargetView.setId(R.id.tv_refresh_target);
-        mRefreshTargetView.setOnClickListener(this);
+        // mRefreshTargetView.setOnClickListener(this);
         mRefreshTargetView.setOnKeyListener(this);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                         | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
@@ -139,37 +148,42 @@ public class RefreshService4NR extends Service implements View.OnTouchListener, 
 
     @Override
     public void onClick(View v) {
-        ActivityInfo currentActivity = getCurrentActivityInfo();
 
-        if (currentActivity.equals(IGNORE_ACTIVITY))
-            return;
+        checkAppAccessibility();
 
-        if (isRegisteredActivity(currentActivity)) {
-            executeRefresh();
 
-        } else {
-            // makeToast(getString(R.string.service_wait_launch_msg));
-
-            // Register Activity
-            if (EDIT_MODE) {
-                mHandler.removeCallbacks(mResetCountRunnable);
-
-                mRegisterTouchCount = ++mRegisterTouchCount % REGISTER_ACTIVITY_TOUCH_COUNT;
-                Log.d(TAG, "mRegistTouchCount : " + mRegisterTouchCount + "/" + REGISTER_ACTIVITY_TOUCH_COUNT);
-
-                if (mRegisterTouchCount == 0) {
-                    makeToast(getString(R.string.service_register_activity_msg));
-                    registerActivity(currentActivity);
-                } else {
-                    makeToast(getString(R.string.service_register_activity_mode_msg_fmt, (REGISTER_ACTIVITY_TOUCH_COUNT - mRegisterTouchCount)));
-                    mHandler.postDelayed(mResetCountRunnable, USER_TOUCH_INTERVAL);
-                }
-            }
-        }
+//        ActivityInfo currentActivity = getCurrentActivityInfo();
+//
+//        if (currentActivity.equals(IGNORE_ACTIVITY))
+//            return;
+//
+//        if (isRegisteredActivity(currentActivity)) {
+//            executeRefresh();
+//
+//        } else {
+//            // makeToast(getString(R.string.service_wait_launch_msg));
+//
+//            // Register Activity
+//            if (EDIT_MODE) {
+//                mHandler.removeCallbacks(mResetCountRunnable);
+//
+//                mRegisterTouchCount = ++mRegisterTouchCount % REGISTER_ACTIVITY_TOUCH_COUNT;
+//                Log.d(TAG, "mRegistTouchCount : " + mRegisterTouchCount + "/" + REGISTER_ACTIVITY_TOUCH_COUNT);
+//
+//                if (mRegisterTouchCount == 0) {
+//                    makeToast(getString(R.string.service_register_activity_msg));
+//                    registerActivity(currentActivity);
+//                } else {
+//                    makeToast(getString(R.string.service_register_activity_mode_msg_fmt, (REGISTER_ACTIVITY_TOUCH_COUNT - mRegisterTouchCount)));
+//                    mHandler.postDelayed(mResetCountRunnable, USER_TOUCH_INTERVAL);
+//                }
+//            }
+//        }
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        checkAppAccessibility();
         return false;
     }
 
@@ -187,6 +201,36 @@ public class RefreshService4NR extends Service implements View.OnTouchListener, 
         }
 
         return false;
+    }
+
+    private void checkAppAccessibility() {
+        boolean hasPermission = false;
+        AccessibilityManager accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
+
+        // getEnabledAccessibilityServiceList는 현재 접근성 권한을 가진 리스트를 가져오게 된다
+        List<AccessibilityServiceInfo> list = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.DEFAULT);
+
+        for (int i = 0; i < list.size(); i++) {
+            AccessibilityServiceInfo info = list.get(i);
+
+            // 접근성 권한을 가진 앱의 패키지 네임과 패키지 네임이 같으면 현재앱이 접근성 권한을 가지고 있다고 판단함
+            String srvPackageName = getBaseContext().getPackageName();
+            String appPackageName = getApplication().getPackageName();
+            if (info.getResolveInfo().serviceInfo.packageName.equals(getApplication().getPackageName())) {
+                hasPermission = true;
+            }
+        }
+        if (hasPermission) {
+            if (bProcessAccessibility) bProcessAccessibility = false;
+            Toast.makeText(this, "접근성 권한이 있습니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            if (!bProcessAccessibility) {
+                Toast.makeText(this, "접근성 권한이 없습니다.\n리프레시유 사용을 위해서는 접근성 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
+                bProcessAccessibility = true;
+                startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            }
+        }
+
     }
 
     /**
@@ -319,7 +363,12 @@ public class RefreshService4NR extends Service implements View.OnTouchListener, 
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public void onAccessibilityEvent(AccessibilityEvent event) {
+
+    }
+
+    @Override
+    public void onInterrupt() {
+
     }
 }
