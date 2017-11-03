@@ -20,7 +20,7 @@ public class BootReceiver extends BroadcastReceiver
 
         if ( intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED) ) {
             if (isRunOnBoot) {
-                Intent i = new Intent(context, RefreshService.class);
+                Intent i = new Intent(context, RefreshService4NR.class);
                 context.startService(i);
             }
             pref.edit().putBoolean(context.getString(R.string.setting_refresh_service_run_key), isRunOnBoot).commit();

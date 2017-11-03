@@ -46,7 +46,7 @@ public class SettingFragment extends PreferenceFragment {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
 
             if (bServiceRun) { // 돌고 있지 않는 경우는 갱신할 필요 없음
-                Intent intent = new Intent(getActivity(), RefreshService.class);
+                Intent intent = new Intent(getActivity(), RefreshService4NR.class);
                 getActivity().startService(intent);
             }
             return true;
@@ -62,7 +62,7 @@ public class SettingFragment extends PreferenceFragment {
             preference.setDefaultValue(value);
 
             if (bServiceRun) { // 돌고 있지 않는 경우는 갱신할 필요 없음
-                Intent intent = new Intent(getActivity(), RefreshService.class);
+                Intent intent = new Intent(getActivity(), RefreshService4NR.class);
                 getActivity().startService(intent);
             }
 
@@ -87,7 +87,7 @@ public class SettingFragment extends PreferenceFragment {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 boolean on = (Boolean) newValue;
 
-                Intent intent = new Intent(getActivity(), RefreshService.class);
+                Intent intent = new Intent(getActivity(), RefreshService4NR.class);
                 if (on) {
                     getActivity().startService(intent);
                     bServiceRun = true;

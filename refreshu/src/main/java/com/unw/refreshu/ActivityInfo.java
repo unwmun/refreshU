@@ -36,7 +36,7 @@ public class ActivityInfo {
 
     @Override
     public boolean equals(Object o) {
-        return this.activityName.equals( ((ActivityInfo)o).activityName );
+        return (this.activityName == null ? "" : this.activityName).equals( ((ActivityInfo)o).activityName );
     }
 
     @Override
